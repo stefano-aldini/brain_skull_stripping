@@ -60,7 +60,7 @@ https://s3.amazonaws.com/openneuro.org/ds000247/sub-0002/ses-01/anat/sub-0002_se
 With Atlas and mask from:
 http://www.bic.mni.mcgill.ca/~vfonov/icbm/2009/mni_icbm152_nlin_sym_09a_nifti.zip
 
-
+The Atlas and mask data used are located in __brain_skull_stripping/data__.
 
 ## Assumptions Made
 
