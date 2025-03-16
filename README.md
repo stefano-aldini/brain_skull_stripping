@@ -52,6 +52,15 @@ For example:
 python -m src.process_mri --input sub-0002_ses-01_T1w.nii.gz --output sub-0002_ses-0001_T1w_defaced_out.nii.gz --sigma 1.5 --normalization_method z-score --generate_pdf
 ```
 
+## Unit Testing
+
+Unit testing is performed with pytest. To run the tests, from the root directory of the repository, run:
+
+```bash
+pytest test/test_process_mri.py
+```
+
+
 ## Test The Script
 
 To test the script, the following subject has been used:
