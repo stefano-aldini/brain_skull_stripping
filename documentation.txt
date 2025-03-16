@@ -1,0 +1,53 @@
+# Brain Skull Stripping Pipeline Documentation
+
+## Processing Steps
+
+1. **Load and Validate Input Volume**:
+    - The tool accepts 3D brain scans in DICOM or NIFTI format.
+    - It ensures that the input data is valid for processing by checking the dimensionality and presence of NaN values.
+
+2. **Basic Preprocessing**:
+    - **Normalize Image Intensities**: The image intensities can be normalized using either Z-score normalization or min-max scaling.
+    - **Gaussian Smoothing**: A Gaussian filter is applied to the image to reduce noise and improve the quality of the skull stripping process.
+
+3. **Atlas-Based Skull Stripping**:
+    - **Load MNI Brain Atlas**: The MNI brain atlas template and corresponding mask are loaded.
+    - **Register Input Image**: The input image is registered to the MNI atlas template to align the anatomical structures.
+    - **Apply Brain Mask**: The transformed brain mask is applied to extract the brain region from the input image.
+
+4. **Save Segmented Brain**:
+    - **Save Resulting Brain Data**: The resulting segmented brain volume is saved to an output file in the format specified by the output name.
+    - **Save Images**: The images generated during the pipeline are saved in PNG format for easy access.
+    - **Generate PDF with Result Summary**: A PDF report is created containing the quality metrics and images generated while processing the brain image.
+
+## Implementation Decisions
+
+1. **Normalization Methods**:
+    - Two normalization methods are provided: Z-score normalization and min-max scaling. These methods were chosen to accommodate different types of intensity distributions in MRI scans.
+
+2. **Gaussian Smoothing**:
+    - Gaussian smoothing is applied to reduce noise and improve the quality of the skull stripping process. The sigma parameter for the Gaussian filter is configurable.
+
+3. **Atlas-Based Registration**:
+    - The MNI brain atlas is used as a reference template for registration. This choice was made due to its widespread use and availability in neuroimaging research.
+
+4. **Error Handling**:
+    - The code includes error handling to manage issues such as missing files, invalid input data, and processing errors. Errors are logged and reported in the PDF summary.
+
+5. **Visualization**:
+    - Visualization of the original, registered, and skull-stripped images is included to provide a visual summary of the processing steps. These images are saved as PNG files and included in the PDF report.
+
+6. **PDF Report Generation**:
+    - A PDF report is generated to summarize the processing results, including quality metrics and visualizations. This report provides a comprehensive overview of the processing pipeline and its outcomes. Very useful also to debug the process.
+
+7. **Command-Line Interface**:
+    - The tool is designed to be run from the command line, with arguments for input file, output file, sigma, normalization method, and PDF generation. This design allows for flexibility and ease of use in different environments.
+
+8. **Unit Testing**:
+    - Unit tests are provided to ensure the correctness of the processing steps. The tests are implemented using pytest and cover key functions and workflows.
+
+9. **Assumptions**:
+    - The pipeline assumes valid input data, availability of the atlas and mask, accurate registration, suitable image intensities, and write permissions for output files. These assumptions are documented to inform users of the expected conditions for successful processing.
+
+10. **Potential Improvements**:
+    - Suggestions for future improvements include adding more robust error handling, enhancing the PDF report formatting, and providing a graphical user interface (GUI) for ease of use.

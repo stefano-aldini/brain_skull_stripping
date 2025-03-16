@@ -98,3 +98,4 @@ The pipeline makes the following assumptions:
 11. Pass atlas and mask data folder as an argument from the command line.
 12. Add all resulting files in a zipped folder.
 13. Add quality metrics for each step.
+14. Add option to not show images in real time while processing.
