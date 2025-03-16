@@ -27,6 +27,7 @@ The pipeline consists of several key steps:
 1.  **Extract the folder from the zip file provided and navigate to the directory:**
 
     ```bash
+    git clone https://github.com/stefano-aldini/brain_skull_stripping.git
     cd brain_skull_stripping
     ```
 
