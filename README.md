@@ -19,7 +19,7 @@ The pipeline consists of several key steps:
 
 4.  **Save Segmented Brain**:
     *   **Save Resulting Brain Data**: The resulting segmented brain volume is saved to an output file in the format specified by the output name.
-    *   **Save Images**: The images generated during the pipeline are saved in PNG format, for easy access.
+    *   **Save Images**: The images generated during the pipeline are saved in png format, for easy access.
     *   **Generate PDF with Result Summary**: A PDF report is created. It contains the metrics and images generated while processing the brain image.
 
 ## Installation/Setup Instructions
@@ -76,14 +76,14 @@ The pipeline makes the following assumptions:
 
 ## Potential Improvements
 
-1. Add --save_image as an argument to the Python module.
-2. Check that the shape of the atlas is reasonable.
-3. Check that the input data is reasonable.
-4. Improve tests. For example test for DICOM, by using the dicomgenerator library.
+1. Add --save_image as an argument to the python module.
+2. Check that shape of the atlas is reasonable.
+3. Check that input data is reasonable.
+4. Improve tests. For example test for DICOM, by using library dicomgenerator.
 5. Make code more robust.
 6. PdfGenerator could be in a separate file/class.
 7. Depending on the user, a simple GUI could be created to avoid using the command line.
 8. Better logging. Include warnings. For example, if the image becomes too blurred after smoothing, a warning pointing to that phase of the pipeline could be useful.
 9. Resulting images could be cropped/resized to be consistent in size.
 10. The generated PDF could be improved in formatting and presented data.
-11. Pass the atlas and mask data folder as an argument from the command line
+11. Pass atlas and mask data folder as an argument from the command line

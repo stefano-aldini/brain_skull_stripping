@@ -1,0 +1,9 @@
+nibabel
+numpy
+scipy
+scikit-image
+SimpleITK
+matplotlib
+argparse
+pydicom
+logging
