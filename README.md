@@ -20,7 +20,7 @@ The pipeline consists of several key steps:
 4.  **Save Segmented Brain**:
     *   **Save Resulting Brain Data**: The resulting segmented brain volume is saved to an output file in the format specified by the output name.
     *   **Save Images**: The images generated during the pipeline are saved in png format, for easy access.
-    *   **Generate PDF with Result Summary**: A PDF report is created. It contains the metrics and images generated while processing the brain image.
+    *   **Generate PDF with Result Summary**: A PDF report is created. It contains the quality metrics and images generated while processing the brain image.
 
 ## Installation/Setup Instructions
 
@@ -97,4 +97,4 @@ The pipeline makes the following assumptions:
 10. The generated PDF could be improved in formatting and presented data.
 11. Pass atlas and mask data folder as an argument from the command line.
 12. Add all resulting files in a zipped folder.
-13. Add metrics for each step.
+13. Add quality metrics for each step.
