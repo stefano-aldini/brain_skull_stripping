@@ -99,3 +99,5 @@ The pipeline makes the following assumptions:
 12. Add all resulting files in a zipped folder.
 13. Add quality metrics for each step.
 14. Add option to not show images in real time while processing.
+15. Figure generator could be made leaner, considering that the figure structure is always the same.
+16. Add support for other compressed formats, e.g. zip files.

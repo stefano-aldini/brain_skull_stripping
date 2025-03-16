@@ -51,3 +51,22 @@
 
 10. **Potential Improvements**:
     - Suggestions for future improvements include adding more robust error handling, enhancing the PDF report formatting, and providing a graphical user interface (GUI) for ease of use.
+
+## AI Tools
+
+Gemini and GPT-4o have been used to speed up the generation of code for this challenge. In particular:
+
+- To generate a template structure for the project.
+- Create Doxygen documentation throughout the code.
+- Specify inputs and outputs of each function.
+- Help me debug errors thrown by widely used libraries, such as matplotlib.
+- Draft and edit code to format correctly figures and pdf.
+
+Limitations:
+
+- The data flow in the implemented pipeline was off. Dimensions and data types were often disregarded.
+- Images and PDF required to manually reformat everything.
+- Library selection. For PDF generation that contains figures generated with matplotlib, I have positive experience with the PdfPages package of that library.
+- I had to prompt AI to generate function input-output types. This avoids mistakes that arise from using wrong variable types.
+
+I tested and refined the code by running the script in debug mode. The main advantage of AI for me is to produce templates and generate documentation.
