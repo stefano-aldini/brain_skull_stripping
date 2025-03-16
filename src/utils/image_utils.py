@@ -159,12 +159,16 @@ def gaussian_smoothing(image: np.ndarray, sigma: float = 1.0) -> np.ndarray:
 
 
 def visualize_results(
-    original_image: np.ndarray, skull_stripped_image: np.ndarray, output_file_base: str
+    original_image: np.ndarray,
+    registered_image: np.ndarray,
+    skull_stripped_image: np.ndarray,
+    output_file_base: str,
 ) -> None:
     """
     @brief Visualizes the skull stripping results by plotting middle slices in each dimension.
 
     @param original_image (numpy.ndarray): The original brain image data as a NumPy array.
+    @param registered_image (numpy.ndarray): The registered brain image data as a NumPy array.
     @param skull_stripped_image (numpy.ndarray): The skull-stripped brain image data as a NumPy array.
     @param output_path (str): The path to save the visualization image.
     """
@@ -200,6 +204,45 @@ def visualize_results(
     plt.tight_layout()
     # Save the image
     plt.savefig(output_file_base + "_original.png")
+
+    # Show the plot
+    plt.show()
+
+    # Close the figure
+    plt.close()
+
+    # Get middle slices of registered and skull-striped images
+    slice_x = registered_image.shape[0] // 2
+    slice_y = registered_image.shape[1] // 2
+    slice_z = registered_image.shape[2] // 2
+
+    # Create the figure and axes
+    fig_registered = plt.figure(figsize=(12, 6))  # Adjust figure size as needed
+    ax_z = fig_registered.add_subplot(121)  # Z axis on the left
+    ax_x = fig_registered.add_subplot(243)  # X axis on the right, top
+    ax_y = fig_registered.add_subplot(247)  # Y axis on the right, bottom
+
+    # Plot Z axis
+    ax_z.imshow(registered_image[:, :, slice_z].T, cmap="gray", origin="lower")
+    ax_z.set_title("Z Axis")
+    ax_z.axis("off")
+
+    # Plot X axis (scaled down)
+    ax_x.imshow(registered_image[slice_x, :, :].T, cmap="gray", origin="lower")
+    ax_x.set_title("X Axis")
+    ax_x.axis("off")
+
+    # Plot Y axis (scaled down)
+    ax_y.imshow(registered_image[:, slice_y, :].T, cmap="gray", origin="lower")
+    ax_y.set_title("Y Axis")
+    ax_y.axis("off")
+
+    fig_registered.suptitle("Middle slices of registered image")
+
+    # Adjust layout to prevent overlap
+    plt.tight_layout()
+    # Save the image
+    plt.savefig(output_file_base + "_registered.png")
 
     # Show the plot
     plt.show()
@@ -250,8 +293,8 @@ def visualize_results(
     ax_checkerboard_y = fig_checkerboard.add_subplot(247)  # Y axis on the right, bottom
 
     # Create checkerboard pattern for Z axis
-    checkerboard_z = np.zeros_like(original_image[:, :, slice_z])
-    checkerboard_z[::2, ::2] = original_image[::2, ::2, slice_z]
+    checkerboard_z = np.zeros_like(registered_image[:, :, slice_z])
+    checkerboard_z[::2, ::2] = registered_image[::2, ::2, slice_z]
     checkerboard_z[1::2, 1::2] = skull_stripped_image[1::2, 1::2, slice_z]
 
     # Plot checkerboard comparison for Z axis
@@ -260,8 +303,8 @@ def visualize_results(
     ax_checkerboard_z.axis("off")
 
     # Create checkerboard pattern for X axis
-    checkerboard_x = np.zeros_like(original_image[slice_x, :, :])
-    checkerboard_x[::2, ::2] = original_image[slice_x, ::2, ::2]
+    checkerboard_x = np.zeros_like(registered_image[slice_x, :, :])
+    checkerboard_x[::2, ::2] = registered_image[slice_x, ::2, ::2]
     checkerboard_x[1::2, 1::2] = skull_stripped_image[slice_x, 1::2, 1::2]
 
     # Plot checkerboard comparison for X axis
@@ -270,8 +313,8 @@ def visualize_results(
     ax_checkerboard_x.axis("off")
 
     # Create checkerboard pattern for Y axis
-    checkerboard_y = np.zeros_like(original_image[:, slice_y, :])
-    checkerboard_y[::2, ::2] = original_image[::2, slice_y, ::2]
+    checkerboard_y = np.zeros_like(registered_image[:, slice_y, :])
+    checkerboard_y[::2, ::2] = registered_image[::2, slice_y, ::2]
     checkerboard_y[1::2, 1::2] = skull_stripped_image[1::2, slice_y, 1::2]
 
     # Plot checkerboard comparison for Y axis

@@ -95,4 +95,6 @@ The pipeline makes the following assumptions:
 8. Better logging. Include warnings. For example, if the image becomes too blurred after smoothing, a warning pointing to that phase of the pipeline could be useful.
 9. Resulting images could be cropped/resized to be consistent in size.
 10. The generated PDF could be improved in formatting and presented data.
-11. Pass atlas and mask data folder as an argument from the command line
+11. Pass atlas and mask data folder as an argument from the command line.
+12. Add all resulting files in a zipped folder.
+13. Add metrics for each step.

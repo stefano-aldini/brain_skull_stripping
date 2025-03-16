@@ -162,21 +162,17 @@ def create_pdf_report(report: dict, pdf_output_path: str = "") -> None:
                         )
                         axes[0].text(0.5, 0.5, "Original image not found", ha="center")
 
-                    # Skull-stripped image
-                    skull_stripped_image_path = (
-                        report["visualization_output"] + "_skull_stripped.png"
-                    )
-                    if os.path.exists(skull_stripped_image_path):
-                        img = plt.imread(skull_stripped_image_path)
+                    # Registered image
+                    registered_path = report["visualization_output"] + "_registered.png"
+                    if os.path.exists(registered_path):
+                        img = plt.imread(registered_path)
                         axes[1].imshow(img)
                         axes[1].set_title("Skull-Stripped Brain Image")
                         axes[1].axis("off")
                     else:
-                        logging.error(
-                            f"Skull-stripped image not found: {skull_stripped_image_path}"
-                        )
+                        logging.error(f"Registered image not found: {registered_path}")
                         axes[1].text(
-                            0.5, 0.5, "Skull-stripped image not found", ha="center"
+                            0.5, 0.5, "Registered image not found", ha="center"
                         )
 
                     # Add the figure to the PDF
@@ -184,26 +180,47 @@ def create_pdf_report(report: dict, pdf_output_path: str = "") -> None:
                     pdf.savefig(fig)
                     plt.close(fig)
 
-                    # Checkerboard comparison image on a new page
-                    fig_checkerboard = plt.figure(figsize=(8.5, 11))
+                    # Create a figure for the visualizations
+                    fig1, axes1 = plt.subplots(2, 1, figsize=(8.5, 11))
+
+                    # Skull-stripped image
+                    skull_stripped_image_path = (
+                        report["visualization_output"] + "_skull_stripped.png"
+                    )
+                    if os.path.exists(skull_stripped_image_path):
+                        img = plt.imread(skull_stripped_image_path)
+                        axes1[0].imshow(img)
+                        axes1[0].set_title("Skull-Stripped Brain Image")
+                        axes1[0].axis("off")
+                    else:
+                        logging.error(
+                            f"Skull-stripped image not found: {skull_stripped_image_path}"
+                        )
+                        axes1[0].text(
+                            0.5, 0.5, "Skull-stripped image not found", ha="center"
+                        )
+
+                    # Checkerboard comparison image
                     checkerboard_image_path = (
                         report["visualization_output"] + "_checkerboard.png"
                     )
                     if os.path.exists(checkerboard_image_path):
                         img = plt.imread(checkerboard_image_path)
-                        plt.imshow(img)
-                        plt.title("Checkerboard Comparison")
-                        plt.axis("off")
+                        axes1[1].imshow(img)
+                        axes1[1].set_title("Checkerboard Comparison")
+                        axes1[1].axis("off")
                     else:
                         logging.error(
                             f"Checkerboard image not found: {checkerboard_image_path}"
                         )
-                        plt.text(0.5, 0.5, "Checkerboard image not found", ha="center")
+                        axes1[1].text(
+                            0.5, 0.5, "Checkerboard image not found", ha="center"
+                        )
 
                     # Add the checkerboard figure to the PDF
                     plt.tight_layout()
-                    pdf.savefig(fig_checkerboard)
-                    plt.close(fig_checkerboard)
+                    pdf.savefig(fig1)
+                    plt.close(fig1)
             except Exception as e:
                 logging.error(f"Error adding visualization to PDF: {e}")
                 fig = plt.figure(figsize=(8.5, 11))
@@ -300,7 +317,9 @@ def main(
             visualization_output_base = input_file[:-4]
         elif input_file.endswith(".dcm.gz"):
             visualization_output_base = input_file[:-7]
-        visualize_results(registered_img, brain_extracted, visualization_output_base)
+        visualize_results(
+            img_data, registered_img, brain_extracted, visualization_output_base
+        )
         visualization_output_dir = os.path.dirname(visualization_output_base)
         logging.info(f"Visualization saved directory: {visualization_output_dir}")
         report["visualization_output"] = visualization_output_base
